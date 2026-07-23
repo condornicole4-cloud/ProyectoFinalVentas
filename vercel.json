@@ -1,17 +1,7 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "functions": {
-    "*.php": {
-      "runtime": "vercel-php@0.7.3"
-    },
-    "backend/**/*.php": {
-      "runtime": "vercel-php@0.7.3"
-    },
-    "frontend/**/*.php": {
-      "runtime": "vercel-php@0.7.3"
-    }
-  },
+  "version": 2,
   "routes": [
+    { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/index.php" }
   ]
 }
