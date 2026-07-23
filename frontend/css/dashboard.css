@@ -1,0 +1,470 @@
+/* =========================================================
+   SISTEMA POS · Estilos globales
+   Misma paleta de siempre (verde-oscuro / verde-medio / verde-claro),
+   con más carácter: degradados, brillos y micro-animaciones.
+   Este archivo NO cambia ninguna estructura HTML, solo estilos.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    /* Paleta original — intacta */
+    --verde-oscuro: #1b4332;
+    --verde-medio: #2d6a4f;
+    --verde-claro: #40916c;
+    --fondo-gris: #f8f9fa;
+
+    /* Derivados de la misma paleta, para dar profundidad sin
+       introducir colores nuevos */
+    --verde-oscuro-2: #0f261c;
+    --verde-suave: #d8f3dc;
+    --verde-fondo: #eef4ef;
+    --borde-suave: #e3e8e4;
+    --texto-principal: #1f2a24;
+    --texto-secundario: #5c6b62;
+
+    --degradado-verde: linear-gradient(135deg, var(--verde-medio) 0%, var(--verde-oscuro) 100%);
+    --degradado-verde-claro: linear-gradient(135deg, var(--verde-claro) 0%, var(--verde-medio) 100%);
+
+    --radio-sm: 8px;
+    --radio-md: 12px;
+    --radio-lg: 16px;
+
+    --sombra-sm: 0 2px 8px rgba(27, 67, 50, 0.07);
+    --sombra-md: 0 8px 24px rgba(27, 67, 50, 0.12);
+    --sombra-lg: 0 16px 40px rgba(27, 67, 50, 0.20);
+    --sombra-glow: 0 0 0 4px rgba(64, 145, 108, 0.14);
+
+    --transicion: 0.22s cubic-bezier(.4,0,.2,1);
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background:
+        radial-gradient(circle at 100% 0%, rgba(64,145,108,0.07) 0, transparent 40%),
+        radial-gradient(circle at 0% 100%, rgba(27,67,50,0.05) 0, transparent 35%),
+        var(--fondo-gris);
+    background-attachment: fixed;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--texto-principal);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    color: var(--verde-oscuro);
+}
+
+/* Título de cada página (Punto de Venta, Historial, etc.) */
+h3.mb-3{
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    padding-bottom: 12px;
+    margin-bottom: 26px !important;
+    position: relative;
+    display: inline-block;
+}
+h3.mb-3::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 56px;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--degradado-verde-claro);
+}
+
+/* Contenido: pequeña entrada suave al cargar cada página */
+@keyframes fundido-arriba{
+    from{ opacity: 0; transform: translateY(8px); }
+    to{ opacity: 1; transform: translateY(0); }
+}
+.pos-content, .historial-content, #content{
+    animation: fundido-arriba 0.35s ease;
+}
+
+/* Scrollbar acorde a la paleta */
+::-webkit-scrollbar{
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-track{
+    background: transparent;
+}
+::-webkit-scrollbar-thumb{
+    background: #c3d6cb;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover{
+    background: var(--verde-claro);
+}
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+#sidebar.sidebar-pos {
+    width: 280px;
+    min-width: 280px;
+    height: 100vh;
+    position: fixed;
+    background:
+        radial-gradient(circle at 15% 0%, rgba(64,145,108,0.35) 0, transparent 45%),
+        linear-gradient(180deg, var(--verde-oscuro) 0%, var(--verde-oscuro-2) 100%);
+    box-shadow: var(--sombra-lg);
+    z-index: 10;
+}
+
+.sidebar-brand{
+    letter-spacing: 0.02em;
+    font-size: 1.3rem;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.25);
+}
+.sidebar-subtitle{
+    color: var(--verde-claro);
+    letter-spacing: 0.14em;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+.sidebar-divider{
+    border-color: rgba(255,255,255,0.12);
+    margin: 14px 0;
+}
+
+/* Fuerza que el menú siempre se apile en una sola columna,
+   sin depender únicamente de la utilidad flex-column de Bootstrap */
+#sidebar ul.nav{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+#sidebar ul.nav .nav-item{
+    width: 100%;
+}
+
+#sidebar ul li a.menu-item{
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 0.98rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--verde-suave);
+    border-radius: var(--radio-sm);
+    border-left: 3px solid transparent;
+    transition: all var(--transicion);
+    position: relative;
+    white-space: nowrap;
+}
+.menu-icon{
+    font-size: 1rem;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: rgba(255,255,255,0.08);
+    transition: all var(--transicion);
+}
+#sidebar ul li a.menu-item:hover{
+    color: #fff;
+    background: rgba(255,255,255,0.08);
+    border-left-color: var(--verde-claro);
+    transform: translateX(4px);
+}
+#sidebar ul li a.menu-item:hover .menu-icon{
+    background: var(--verde-claro);
+}
+#sidebar ul li a.menu-item.active{
+    color: #fff;
+    background: linear-gradient(90deg, rgba(64,145,108,0.35) 0%, rgba(64,145,108,0.08) 100%);
+    border-left-color: var(--verde-claro);
+    box-shadow: var(--sombra-sm);
+    font-weight: 700;
+}
+#sidebar ul li a.menu-item.active .menu-icon{
+    background: var(--verde-claro);
+    box-shadow: 0 0 12px rgba(64,145,108,0.7);
+}
+
+/* Tarjeta del usuario / cajero activo en el sidebar */
+.sidebar-usuario{
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radio-md);
+    padding: 10px 12px;
+}
+.sidebar-avatar{
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 50%;
+    background: var(--degradado-verde-claro);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.08);
+}
+.sidebar-usuario-nombre{
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: #fff;
+    line-height: 1.2;
+}
+.sidebar-usuario-rol{
+    font-size: 0.75rem;
+    color: var(--verde-claro);
+    text-transform: capitalize;
+    font-weight: 600;
+}
+
+/* =========================================================
+   CONTENIDO PRINCIPAL
+   ========================================================= */
+#content {
+    width: 100%;
+    min-height: 100vh;
+    transition: all var(--transicion);
+}
+
+/* Botón cerrar sesión */
+.btn-logout {
+    background: linear-gradient(135deg, #e5383b 0%, #d90429 100%);
+    color: #fff;
+    border: none;
+    border-radius: var(--radio-sm);
+    padding: 9px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transicion);
+}
+.btn-logout:hover {
+    background: linear-gradient(135deg, #ba181b 0%, #9d0208 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(217, 4, 41, 0.35);
+}
+
+/* =========================================================
+   TARJETAS, TABLAS Y BOTONES — reutilizables en todas las páginas
+   ========================================================= */
+.card{
+    border: none !important;
+    border-radius: var(--radio-md) !important;
+    box-shadow: var(--sombra-sm);
+    transition: box-shadow var(--transicion);
+}
+.card:hover{
+    box-shadow: var(--sombra-md);
+}
+
+/* Tarjetas de totalizadores (historial) y cualquier tarjeta con acento de color:
+   se les agrega brillo y un leve efecto 3D al pasar el mouse */
+.tarjeta-total{
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transicion), box-shadow var(--transicion);
+    box-shadow: var(--sombra-sm);
+}
+.tarjeta-total::after{
+    content: "";
+    position: absolute;
+    top: -60%;
+    right: -30%;
+    width: 140px;
+    height: 140px;
+    background: rgba(255,255,255,0.10);
+    border-radius: 50%;
+}
+.tarjeta-total:hover{
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: var(--sombra-md);
+}
+
+.table{
+    border-radius: var(--radio-md);
+    overflow: hidden;
+}
+.table thead th{
+    background: var(--degradado-verde);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border: none;
+    padding: 13px 14px;
+}
+.table tbody td{
+    padding: 12px 14px;
+    vertical-align: middle;
+    border-color: var(--borde-suave);
+}
+.table-hover tbody tr{
+    transition: background-color var(--transicion), box-shadow var(--transicion);
+}
+.table-hover tbody tr:hover{
+    background-color: var(--verde-fondo);
+    box-shadow: inset 3px 0 0 var(--verde-claro);
+}
+
+.btn{
+    border-radius: var(--radio-sm);
+    font-weight: 600;
+    transition: all var(--transicion);
+}
+.btn:active{
+    transform: translateY(1px);
+}
+.btn-outline-primary,
+.btn-outline-secondary{
+    border-color: var(--verde-medio);
+    color: var(--verde-oscuro);
+}
+.btn-outline-primary:hover,
+.btn-outline-secondary:hover{
+    background-color: var(--verde-medio);
+    border-color: var(--verde-medio);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: var(--sombra-sm);
+}
+
+/* Botón principal de acción (ej. Procesar Venta, Filtrar): degradado con brillo */
+.btn-procesar,
+.btn-filtrar{
+    background: var(--degradado-verde) !important;
+    color: #fff !important;
+    border: none !important;
+    box-shadow: var(--sombra-sm);
+}
+.btn-procesar:hover,
+.btn-filtrar:hover{
+    background: var(--degradado-verde-claro) !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(64, 145, 108, 0.35);
+}
+
+.form-control,
+.form-select{
+    transition: all var(--transicion);
+}
+.form-control:focus,
+.form-select:focus{
+    border-color: var(--verde-claro);
+    box-shadow: var(--sombra-glow);
+}
+
+.badge{
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+}
+.badge-pagada{
+    background: var(--degradado-verde-claro) !important;
+}
+.badge-anulada{
+    background: linear-gradient(135deg, #e5383b 0%, #d90429 100%) !important;
+}
+
+/* Modales: encabezado con el mismo degradado de marca */
+.modal-content{
+    border: none;
+    border-radius: var(--radio-lg);
+    overflow: hidden;
+    box-shadow: var(--sombra-lg);
+}
+.modal-header{
+    background: var(--degradado-verde) !important;
+}
+
+/* Utilidad genérica de tarjeta con sombra, usada por la pantalla de login */
+.card-shadow{
+    background: #fff;
+    border-radius: var(--radio-lg);
+    box-shadow: var(--sombra-lg);
+}
+
+/* Tabla del modal "Ver Detalles" */
+#tablaDetalleModal thead th {
+    background: var(--degradado-verde) !important;
+    color: #fff !important;
+    border-color: rgba(255,255,255,0.15) !important;
+}
+
+#tablaDetalleModal tbody td {
+    color: var(--texto-principal) !important;
+}
+
+/* =========================================================
+   ALERTAS PERSONALIZADAS (reemplazan a los alert() nativos)
+   ========================================================= */
+#contenedorAlertas{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 360px;
+}
+
+@keyframes alerta-pos-entrada{
+    from{ opacity: 0; transform: translateX(30px); }
+    to{ opacity: 1; transform: translateX(0); }
+}
+
+.alerta-pos{
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
+    border-radius: var(--radio-md);
+    color: #fff;
+    font-weight: 500;
+    font-size: 0.92rem;
+    box-shadow: var(--sombra-lg);
+    animation: alerta-pos-entrada 0.25s ease;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.alerta-pos-salida{
+    opacity: 0;
+    transform: translateX(30px);
+}
+.alerta-pos-error{
+    background: linear-gradient(135deg, #e5383b 0%, #d90429 100%);
+}
+.alerta-pos-info{
+    background: var(--degradado-verde);
+}
+.alerta-pos-icono{
+    font-size: 1.1rem;
+    line-height: 1.2;
+}
+.alerta-pos-texto{
+    flex: 1;
+    line-height: 1.35;
+}
+.alerta-pos-cerrar{
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.85);
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+}
+.alerta-pos-cerrar:hover{
+    color: #fff;
+}
